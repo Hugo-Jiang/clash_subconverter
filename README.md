@@ -1,0 +1,2 @@
+# clash_subconverter
+个人subconverter转换规则
