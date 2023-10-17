@@ -7,19 +7,8 @@ proxies:
 proxy-groups: 
   - name: ⚖️ 负载均衡-散列
   type: load-balance
-  url: 'http://www.google.com/generate_204'
-  interval: 300
-  strategy: consistent-hashing
   proxies: 
     - <all>
-  - name: ⚖️ 负载均衡-轮询
-  type: load-balance
-  url: 'http://www.google.com/generate_204'
-  interval: 300
-  strategy: round-robin
-  proxies: 
-    - <all>
-
   - name: Auto
   type: fallback
   proxies: 
@@ -31,7 +20,6 @@ proxy-groups:
     - 🇺🇸 United States
     - 🇨🇦 Canada
     - 🇬🇧 Great Britain
-
   - name: 🇭🇰 香港
   type: select
   proxies:
@@ -64,17 +52,14 @@ proxy-groups:
   type: select
   proxies:
     - <GB>
-  
   - name: 广告拦截
   type: select
   proxies:
     - REJECT
-  
   - name: 漏网之鱼
   type: select
   proxies:
     - Auto
-  
 rules:
   - GEOSITE,private,DIRECT,no-resolve
   - GEOIP,private,DIRECT
