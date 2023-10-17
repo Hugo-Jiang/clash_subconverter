@@ -4,10 +4,10 @@ allow-lan: true
 mode: Rule
 log-level: info
 proxies:
-proxy-groups: 
+proxy-groups:
   - name: Auto
   type: fallback
-  proxies: 
+  proxies:
     - 🇭🇰 Hong Kong
     - 🇨🇳 Taiwan
     - 🇯🇵 Japan
