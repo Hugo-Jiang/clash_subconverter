@@ -5,10 +5,6 @@ mode: Rule
 log-level: info
 proxies:
 proxy-groups: 
-  - name: ⚖️ 负载均衡-散列
-  type: load-balance
-  proxies: 
-    - <all>
   - name: Auto
   type: fallback
   proxies: 
