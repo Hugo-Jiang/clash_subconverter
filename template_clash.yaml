@@ -1,0 +1,90 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+proxies:
+proxy-groups: 
+  - name: ⚖️ 负载均衡-散列
+  type: load-balance
+  url: 'http://www.google.com/generate_204'
+  interval: 300
+  strategy: consistent-hashing
+  proxies: 
+    - <all>
+  - name: ⚖️ 负载均衡-轮询
+  type: load-balance
+  url: 'http://www.google.com/generate_204'
+  interval: 300
+  strategy: round-robin
+  proxies: 
+    - <all>
+
+  - name: Auto
+  type: fallback
+  proxies: 
+    - 🇭🇰 Hong Kong
+    - 🇨🇳 Taiwan
+    - 🇯🇵 Japan
+    - 🇰🇷 Korea
+    - 🇸🇬 Singapore
+    - 🇺🇸 United States
+    - 🇨🇦 Canada
+    - 🇬🇧 Great Britain
+
+  - name: 🇭🇰 香港
+  type: select
+  proxies:
+    - <HK>
+  - name: 🇨🇳 Taiwan
+  type: select
+  proxies:
+    - <TW>
+  - name: 🇯🇵 Japan
+  type: select
+  proxies:
+    - <JP>
+  - name: 🇰🇷 Korea
+  type: select
+  proxies:
+    - <KR>
+  - name: 🇸🇬 Singapore
+  type: select
+  proxies:
+    - <SG>
+  - name: 🇺🇸 United States
+  type: select
+  proxies:
+    - <US>
+  - name: 🇨🇦 Canada
+  type: select
+  proxies:
+    - <CA>
+  - name: 🇬🇧 Great Britain
+  type: select
+  proxies:
+    - <GB>
+  
+  - name: 广告拦截
+  type: select
+  proxies:
+    - REJECT
+  
+  - name: 漏网之鱼
+  type: select
+  proxies:
+    - Auto
+  
+rules:
+  - GEOSITE,private,DIRECT,no-resolve
+  - GEOIP,private,DIRECT
+  - GEOSITE,category-ads-all,广告拦截
+  - GEOSITE,microsoft,🇺🇸 United States
+  - GEOSITE,telegram,🇺🇸 United States
+  - GEOIP,telegram,🇺🇸 United States
+  - GEOSITE,openai,🇺🇸 United States
+  - GEOSITE,bilibili,Auto
+  - GEOSITE,geolocation-!cn,Auto
+  - GEOSITE,CN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,漏网之鱼
